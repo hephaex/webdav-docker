@@ -6,9 +6,9 @@ RUN apt-get update && apt-get install -y nginx nginx-extras apache2-utils
 
 VOLUME /media
 EXPOSE 80
-COPY ./src/webdav.conf /etc/nginx/conf.d/default.conf
+COPY webdav.conf /etc/nginx/conf.d/default.conf
 RUN rm /etc/nginx/sites-enabled/*
 
-COPY ./src/authorized.sh /
+COPY authorized.sh /
 RUN chmod +x authorized.sh
 CMD /authorized.sh && nginx -g "daemon off;"
