@@ -1,0 +1,12 @@
+version: '2'
+services:
+  webdav:
+    build: ./src
+    ports:
+      - "80:80"
+    volumes:
+      - "./media:/media"
+    environment:
+      USERNAME: user
+      PASSWORD: passwd
+  restart: always
