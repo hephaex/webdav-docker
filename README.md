@@ -2,7 +2,6 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/hephaex/webdav.svg)](https://hub.docker.com/r/hephaex/webdav/)
 [![Docker Stars](https://img.shields.io/docker/stars/hephaex/webdav.svg)](https://hub.docker.com/r/hephaex/webdav/)
 [![Build Status](https://travis-ci.org/hephaex/webdav-docker.svg?branch=master)](https://travis-ci.org/hephaex/webdav-docker)
-[![Dependency Status](https://gemnasium.com/hephaex/webdav-docker.svg)](https://gemnasium.com/hephaex/webdab-docker)
 [![Bitcoin donate button](https://img.shields.io/badge/bitcoin-donate-yellow.svg)](https://www.coinbase.com/checkouts/16wBMRsdZkNu6Vk7zQetX27aHLnvwusedz)
 
 # How to use this image
