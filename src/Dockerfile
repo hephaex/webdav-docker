@@ -1,39 +1,14 @@
 FROM hephaex/ubuntu
-
 MAINTAINER Mario Cho <hephaex@gmail.com>
+
 # Build essentials
-RUN apt-get update \
-  && apt-get install -y autotools-dev autoconf automake \
-  && apt-get install -y python3 python3-pip curl git sudo cron \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y nginx nginx-extras apache2-utils
 
-# build mecab
-WORKDIR /opt
-RUN git clone https://github.com/hephaex/mecab.git
-WORKDIR /opt/mecab/mecab
-RUN ./configure  --enable-utf8-only \
-  && make \
-  && make check \
-  && make install \
-  && ldconfig
+VOLUME /media
+EXPOSE 80
+COPY ./src/webdav.conf /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/sites-enabled/*
 
-# build mecab-ko-dic
-WORKDIR /opt/mecab
-RUN curl -fsSL https://bitbucket.org/eunjeon/mecab-ko-dic/downloads/mecab-ko-dic-2.0.3-20170922.tar.gz |tar xvz
-RUN mv mecab-ko-dic-2.0.3-20170922 mecab-ko-dic
-WORKDIR /opt/mecab/mecab-ko-dic
-RUN ./autogen.sh \
-  && ./configure --with-charset=utf8
-RUN make
-RUN make install
-
-RUN echo "dicdir = /usr/local/lib/mecab/dic/mecab-ko-dic" > /usr/local/etc/mecabrc
-
-# ready mecab service
-COPY . /opt/api
-WORKDIR /opt/api
-RUN pip3 install -U pip setuptools
-RUN pip3 install -r requirements.txt
-
-CMD ["python3", "server.py"]
+COPY ./src/authorized.sh /
+RUN chmod +x authorized.sh
+CMD /authorized.sh && nginx -g "daemon off;"
